@@ -9,6 +9,7 @@ function Header() {
     return (
         <header className="container flex justify-between items-center py-10">
             <h1 className="text-5xl">{ title }</h1>
+            <h2>Sous-titre</h2>
             {/*{user.isSignIn ?*/}
             {/*    <ButtonSignOut/>*/}
             {/*    : null}*/}
