@@ -4,9 +4,11 @@
 function Header() {
     // const user = useAppSelector(state => state.persistedReducer)
 
+    const title: string = "Contact manager"
+
     return (
         <header className="container flex justify-between items-center py-10">
-            <h1 className="text-5xl">Contact manager</h1>
+            <h1 className="text-5xl">{ title }</h1>
             {/*{user.isSignIn ?*/}
             {/*    <ButtonSignOut/>*/}
             {/*    : null}*/}
