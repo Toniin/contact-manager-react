@@ -3,7 +3,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS = 'dockerhub_credentials'
         NAME = "toniin/contact-manager-react"
         VERSION = "${env.BUILD_ID}.0.0"
-        GIT_REPO = 'https://github.com/Toniin/react-jenkins.git'
+        GIT_REPO = 'https://github.com/Toniin/contact-manager-react.git'
     }
 
     agent any
