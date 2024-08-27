@@ -18,7 +18,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".", // root of your "paths" below. Required if "paths" is defined
+    "paths": {
+      "@/*": ["./src/*"], // enable @/MyComponent
+      "@components/*": ["./src/components/*"] // enable @components/MyComponent
+    },
   },
   "include": [
     "src"
