@@ -10,7 +10,6 @@ COPY package-lock.json ./
 
 # Install dependencies
 RUN npm ci --silent
-#RUN npm install react-scripts@5.0.1 -g --silent
 RUN npm install @craco/craco -g --silent
 
 # Copy the rest of the application code to the container
