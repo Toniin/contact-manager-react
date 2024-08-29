@@ -1,4 +1,4 @@
-# build environment
+# Build environment
 FROM node:20.15.1-slim AS build
 
 # Set the working directory to /app
@@ -18,14 +18,18 @@ COPY . ./
 # Build the React app
 RUN npm run build
 
-# production environment
+# Production environment
 FROM nginx:1.27.1-alpine3.20-slim
 
-# Copy the ngnix.conf to the container
+# Copy the ngnix.conf to the container nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy the React app build files to the container
+# Copy the React app build files to the container nginx
 COPY --from=build /app/build /usr/share/nginx/html
+
+# Copy the script to update the environment variables
+COPY env.sh /docker-entrypoint.d/env.sh
+RUN chmod +x /docker-entrypoint.d/env.sh
 
 # Expose port 80 for Nginx
 EXPOSE 80
