@@ -1,6 +1,8 @@
 # Contact manager (React)
 Web app in React
 
+Docker image of the project : <a href="https://hub.docker.com/r/toniin/contact-manager-react" target="_blank">toniin/contact-manager-react</a>
+
 ## Clone the application
 
 ```bash
