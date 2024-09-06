@@ -17,7 +17,7 @@ git clone https://github.com/Toniin/contact-manager-react.git
 ## Install dependencies using npm
 
 ```bash
-npm run install
+npm install
 ```
 
 ## Build and run the app using npm
