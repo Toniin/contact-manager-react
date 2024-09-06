@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {Contact} from "@/models/contact.model";
-import {contactsAPI} from "@/lib/axios";
-import {phoneFormatInternational_FR_fr, phoneFormatLocal_FR_fr} from "@/lib/phone.validator";
+import {contactsAPI} from "@/utils/axios";
+import {phoneFormatInternational_FR_fr, phoneFormatLocal_FR_fr} from "@/utils/phone.validator";
 
 export const addContact = createAsyncThunk(
     'addContact',

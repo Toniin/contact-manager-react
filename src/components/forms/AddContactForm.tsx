@@ -9,7 +9,7 @@ import {addContact} from "@/redux/actions/contact.action";
 import {toast} from "sonner";
 import {LuLoader2} from "react-icons/lu";
 import {Contact, contactSchema} from "@/models/contact.model";
-import {phoneValidator_FR_fr} from "@/lib/phone.validator";
+import {phoneValidator_FR_fr} from "@/utils/phone.validator";
 import { withMask } from 'use-mask-input';
 
 function AddContactForm() {

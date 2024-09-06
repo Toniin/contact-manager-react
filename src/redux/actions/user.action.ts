@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {SignInFormUser, SignUpFormUser} from "@/models/user.model";
-import {contactsAPI} from "@/lib/axios";
+import {contactsAPI} from "@/utils/axios";
 
 export const signUp = createAsyncThunk(
     'signUp',

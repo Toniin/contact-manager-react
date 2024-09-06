@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {getContact, getContacts} from "@/redux/actions/contact.action";
 import {Contact} from "@/models/contact.model";
-import {phoneFormatInternational_FR_fr} from "@/lib/phone.validator";
+import {phoneFormatInternational_FR_fr} from "@/utils/phone.validator";
 
 const initialState: Contact[] = []
 

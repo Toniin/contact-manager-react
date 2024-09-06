@@ -10,7 +10,7 @@ import {useAppDispatch} from "@/redux/hooks";
 import {useState} from "react";
 import {isSearching} from "@/redux/reducers/isSearchingReducer";
 import {useHookFormMask} from 'use-mask-input';
-import {phoneValidator_FR_fr} from "@/lib/phone.validator";
+import {phoneValidator_FR_fr} from "@/utils/phone.validator";
 
 const formSchema = z.object({
     phoneNumber: z.string().min(9, {message: "Please enter valid phone number"})

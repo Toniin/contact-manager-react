@@ -9,7 +9,7 @@ import {getContact, getContacts, renameContact} from "@/redux/actions/contact.ac
 import {LuLoader2} from "react-icons/lu";
 import {toast} from "sonner";
 import {isNotEditing} from "@/redux/reducers/isEditingReducer";
-import {phoneFormatInternational_FR_fr} from "@/lib/phone.validator";
+import {phoneFormatInternational_FR_fr} from "@/utils/phone.validator";
 
 const formSchema = z.object({
     name: z.string().min(1, {message: "Please enter name"}),
