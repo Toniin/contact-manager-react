@@ -1,4 +1,4 @@
-const { phoneValidator_FR_fr, phoneFormatLocal_FR_fr, phoneFormatInternational_FR_fr } = require('./phone.validator.ts');
+import {phoneValidator_FR_fr, phoneFormatLocal_FR_fr, phoneFormatInternational_FR_fr} from './phone.validator.ts';
 
 describe("phoneValidator_FR", () => {
     it("should return true", () => {
@@ -19,7 +19,7 @@ describe("phoneValidator_FR", () => {
 //
 //     expect(result).toBe(true)
 // })
-//
+
 // test("phoneValidator_FR_fr() should return false", () => {
 //     const result = phoneValidator_FR_fr("(+33)2 14 56 78 9")
 //

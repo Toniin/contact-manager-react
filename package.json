@@ -8,6 +8,7 @@
     "build": "craco build",
     "serve": "serve -s build",
     "test": "craco test",
+    "test-coverage": "craco test --coverage",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -20,10 +21,6 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@tanstack/react-table": "^8.20.5",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.106",
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0",
     "axios": "^1.7.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -40,14 +37,23 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^4.9.5",
     "use-mask-input": "^3.4.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "@craco/types": "^7.1.0",
-    "tailwindcss": "^3.4.10"
+    "@jest/globals": "^29.7.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.5.4",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^4.9.5"
   },
   "eslintConfig": {
     "extends": [
@@ -65,6 +71,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)"
     ]
   }
 }
