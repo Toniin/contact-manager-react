@@ -14,6 +14,24 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedNavigate
 }))
 
+const setup = () => {
+    // eslint-disable-next-line testing-library/render-result-naming-convention
+    const screen = renderWithProviders(<SignInForm/>, {
+        store,
+    })
+
+    const inputUsername = screen.getAllByTestId('inputUsernameSignInForm')[0]
+    const inputPassword = screen.getAllByTestId('inputPasswordSignInForm')[0]
+    const submitButton = screen.getAllByTestId('submitButtonSignInForm')[0]
+
+    return {
+        screen,
+        inputUsername,
+        inputPassword,
+        submitButton
+    }
+}
+
 beforeEach(async() => {
     jest.spyOn(contactsAPI, 'post').mockResolvedValue({
         data: {
@@ -22,14 +40,7 @@ beforeEach(async() => {
         }
     })
 
-    // eslint-disable-next-line testing-library/no-render-in-setup,testing-library/render-result-naming-convention
-    const screen = renderWithProviders(<SignInForm/>, {
-        store,
-    })
-
-    const inputUsername = screen.getByTestId('inputUsernameSignInForm')
-    const inputPassword = screen.getByTestId('inputPasswordSignInForm')
-    const submitButton = screen.getByTestId('submitButtonSignInForm')
+    const {inputUsername, inputPassword, submitButton} = setup()
 
     await userEvent.type(inputUsername, 'username')
     await userEvent.type(inputPassword, 'password')
@@ -96,10 +107,7 @@ describe("SignInForm", () => {
             }
         })
 
-        // eslint-disable-next-line testing-library/render-result-naming-convention
-        const screen = renderWithProviders(<SignInForm/>, {
-            store,
-        })
+        const { screen } = setup()
 
         await waitFor(() => {
                 const errorSubmitMessage = screen.getAllByTestId('errorSubmitMessageSignInForm')
