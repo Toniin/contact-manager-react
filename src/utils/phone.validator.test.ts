@@ -1,4 +1,4 @@
-import {phoneValidator_FR_fr, phoneFormatLocal_FR_fr, phoneFormatInternational_FR_fr} from './phone.validator.ts';
+import {phoneFormatInternational_FR_fr, phoneFormatLocal_FR_fr, phoneValidator_FR_fr} from './phone.validator';
 
 describe("phoneValidator_FR", () => {
     it("should return true", () => {

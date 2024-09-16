@@ -1,7 +1,9 @@
 import {
-    Dialog, DialogClose,
+    Dialog,
+    DialogClose,
     DialogContent,
-    DialogDescription, DialogFooter,
+    DialogDescription,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -44,7 +46,7 @@ function ButtonDeleteContact({phoneNumber}: { phoneNumber: string }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button data-testid="buttonTriggerDialog" variant="outline" size="icon">
                     <LuTrash2 className="stroke-red-500"/>
                 </Button>
             </DialogTrigger>
@@ -57,12 +59,12 @@ function ButtonDeleteContact({phoneNumber}: { phoneNumber: string }) {
                 </DialogHeader>
                 <DialogFooter className="sm:justify-end">
                     <DialogClose asChild>
-                        <Button type="button" variant="secondary">
+                        <Button data-testid="buttonCloseDialog" type="button" variant="secondary">
                             Close
                         </Button>
                     </DialogClose>
                     <DialogTrigger asChild>
-                        <Button variant="destructive" onClick={onDeleteContact}>
+                        <Button data-testid="buttonDeleteContact" variant="destructive" onClick={onDeleteContact}>
                             Delete
                         </Button>
                     </DialogTrigger>

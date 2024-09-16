@@ -32,87 +32,99 @@ const setup = () => {
     }
 }
 
-beforeEach(async() => {
-    jest.spyOn(contactsAPI, 'post').mockResolvedValue({
-        data: {
-            username: "admin",
-            token: "token",
-        }
-    })
-
-    const {inputUsername, inputPassword, submitButton} = setup()
-
-    await userEvent.type(inputUsername, 'username')
-    await userEvent.type(inputPassword, 'password')
-    await userEvent.click(submitButton)
-});
-
 describe("SignInForm", () => {
-    it("should store username and put isSignIn to true (store Redux)", async () => {
-        const DispatchTest = () => {
-            const dispatch = useAppDispatch();
-            const {username, isSignIn} = useAppSelector(state => state.persistedReducer)
+    describe("on success", () => {
+        beforeEach(async () => {
+            jest.spyOn(contactsAPI, 'post').mockResolvedValue({
+                data: {
+                    username: "admin",
+                    token: "token",
+                }
+            })
 
-            const user = {
-                username: "admin",
+            const {inputUsername, inputPassword, submitButton} = setup()
+
+            await userEvent.type(inputUsername, 'username')
+            await userEvent.type(inputPassword, 'password')
+            await userEvent.click(submitButton)
+        });
+
+        it("should store username and put isSignIn to true (store Redux)", async () => {
+            const DispatchTest = () => {
+                const dispatch = useAppDispatch();
+                const {username, isSignIn} = useAppSelector(state => state.persistedReducer)
+
+                const user = {
+                    username: "admin",
+                    password: "password",
+                }
+
+                useEffect(() => {
+                    dispatch(signIn(user))
+                }, []);
+
+                return (
+                    <div>
+                        <p data-testid="username">{username}</p>
+                        <p data-testid="isSignIn">{JSON.stringify(isSignIn)}</p>
+                    </div>
+                )
+            }
+
+            // eslint-disable-next-line testing-library/render-result-naming-convention
+            const screen = renderWithProviders(<DispatchTest/>, {
+                store,
+            })
+
+            const username = screen.getByTestId("username");
+            const isSignIn = screen.getByTestId("isSignIn");
+
+            await waitFor(() => expect(username).toHaveTextContent("admin"))
+            await waitFor(() => expect(isSignIn).toHaveTextContent("true"))
+        })
+
+        it("should sign in user and redirect to /contacts", async () => {
+            await waitFor(() => expect(contactsAPI.post).toHaveBeenCalledWith("/auth/login", JSON.stringify({
+                username: "username",
                 password: "password",
-            }
+            })), {timeout: 2000})
 
-            useEffect(() => {
-                dispatch(signIn(user))
-            }, []);
+            await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith("/contacts"))
+        })
 
-            return (
-                <div>
-                    <p data-testid="username">{username}</p>
-                    <p data-testid="isSignIn">{JSON.stringify(isSignIn)}</p>
-                </div>
+        it("should stock JWT token in localStorage", async () => {
+            await waitFor(() => {
+                    const token = localStorage.getItem("Token");
+                    expect(token).toBe("token")
+                }
             )
-        }
-
-        // eslint-disable-next-line testing-library/render-result-naming-convention
-        const screen = renderWithProviders(<DispatchTest/>, {
-            store,
         })
-
-        const username = screen.getByTestId("username");
-        const isSignIn = screen.getByTestId("isSignIn");
-
-        await waitFor(() => expect(username).toHaveTextContent("admin"))
-        await waitFor(() => expect(isSignIn).toHaveTextContent("true"))
     })
 
-    it("should sign in user successfully", async () => {
-        await waitFor(() => expect(contactsAPI.post).toHaveBeenCalledWith("/auth/login", JSON.stringify({
-            username: "username",
-            password: "password",
-        })))
+    describe("on failure", () => {
+        beforeEach(async () => {
+            jest.spyOn(contactsAPI, 'post').mockResolvedValue({
+                data: {
+                    isError: true,
+                    message: "Invalid username or password"
+                }
+            })
 
-        await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith("/contacts"))
-    })
+            const {inputUsername, inputPassword, submitButton} = setup()
 
-    it("should stock JWT token in localStorage", async () => {
-        await waitFor(() => {
-                const token = localStorage.getItem("Token");
-                expect(token).toBe("token")
-            }
-        )
-    })
+            await userEvent.type(inputUsername, 'username')
+            await userEvent.type(inputPassword, 'password')
+            await userEvent.click(submitButton)
+        });
 
-    it("should display error submit message", async () => {
-        jest.spyOn(contactsAPI, 'post').mockResolvedValue({
-            data: {
-                isError: true,
-                message: "Invalid username or password"
-            }
+        it("should display error submit message", async () => {
+            const {screen} = setup()
+
+            await waitFor(() => {
+                    const errorSubmitMessage = screen.getAllByTestId('errorSubmitMessageSignInForm')
+                    expect(errorSubmitMessage[0]).toHaveTextContent("Invalid username or password")
+                }
+            , {timeout: 2000})
         })
-
-        const { screen } = setup()
-
-        await waitFor(() => {
-                const errorSubmitMessage = screen.getAllByTestId('errorSubmitMessageSignInForm')
-                expect(errorSubmitMessage[0]).toHaveTextContent("Invalid username or password")
-            }
-        )
     })
 })

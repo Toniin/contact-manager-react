@@ -10,7 +10,7 @@ import {toast} from "sonner";
 import {LuLoader2} from "react-icons/lu";
 import {Contact, contactSchema} from "@/models/contact.model";
 import {phoneValidator_FR_fr} from "@/utils/phone.validator";
-import { withMask } from 'use-mask-input';
+import {withMask} from 'use-mask-input';
 
 function AddContactForm() {
     const navigate = useNavigate();
@@ -77,9 +77,9 @@ function AddContactForm() {
                         <FormItem>
                             <FormLabel>Name</FormLabel>
                             <FormControl>
-                                <Input placeholder="John Doe" {...field} autoFocus={true}/>
+                                <Input data-testid="inputNameAddContactForm" placeholder="John Doe" {...field} autoFocus={true}/>
                             </FormControl>
-                            <FormMessage/>
+                            <FormMessage data-testid="inputNameErrorMessageAddContactForm"/>
                         </FormItem>
                     )}
                 />
@@ -90,13 +90,13 @@ function AddContactForm() {
                         <FormItem>
                             <FormLabel>Phone number</FormLabel>
                             <FormControl>
-                                <Input placeholder="(+33)1 23 45 67 89" {...field} ref={withMask('(+33)9 99 99 99 99')} />
+                                <Input data-testid="inputPhoneNumberAddContactForm" placeholder="(+33)1 23 45 67 89" {...field} ref={withMask('(+33)9 99 99 99 99')} />
                             </FormControl>
-                            <FormMessage/>
+                            <FormMessage data-testid="inputPhoneNumberErrorMessageAddContactForm"/>
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                <Button data-testid="submitButtonAddContactForm" type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting &&
                         <LuLoader2 className="animate-spin h-5 w-5 mr-3"/>
                     }
